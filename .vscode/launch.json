@@ -1,0 +1,81 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    // ── MCP Server ────────────────────────────────────────────────────────────
+    {
+      "name": "Debug: MCP Server",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceFolder}/mcp-server/node_modules/.bin/tsx",
+      "runtimeArgs": ["--inspect"],
+      "args": ["${workspaceFolder}/mcp-server/src/index.ts"],
+      "cwd": "${workspaceFolder}/mcp-server",
+      "env": {
+        "PORT": "3001",
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/mcp-server/dist/**/*.js"],
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "restart": true
+    },
+
+    // ── MCP Bridge ────────────────────────────────────────────────────────────
+    {
+      "name": "Debug: MCP Bridge",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceFolder}/mcp-bridge/node_modules/.bin/tsx",
+      "runtimeArgs": ["--inspect=9230"],
+      "args": ["${workspaceFolder}/mcp-bridge/src/index.ts"],
+      "cwd": "${workspaceFolder}/mcp-bridge",
+      "env": {
+        "PORT": "3002",
+        "MCP_SERVER_URL": "http://localhost:3001/mcp",
+        "CORS_ORIGIN": "http://localhost:5173",
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/mcp-bridge/dist/**/*.js"],
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "restart": true
+    },
+
+    // ── Attach to running tsx process ─────────────────────────────────────────
+    {
+      "name": "Attach: Node (port 9229)",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "restart": true
+    },
+    {
+      "name": "Attach: Node (port 9230)",
+      "type": "node",
+      "request": "attach",
+      "port": 9230,
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "restart": true
+    }
+  ],
+
+  // ── Compound: launch both services together ───────────────────────────────
+  "compounds": [
+    {
+      "name": "Debug: Server + Bridge",
+      "configurations": ["Debug: MCP Server", "Debug: MCP Bridge"],
+      "presentation": {
+        "hidden": false,
+        "group": "MCP",
+        "order": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "mcp-client-workspace",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n \"server,bridge,vue\" -c \"blueBright,greenBright,cyanBright\" --kill-others-on-fail \"npm run dev --prefix mcp-server\" \"npm run dev --prefix mcp-bridge\" \"npm run dev --prefix vue-frontend\"",
+    "dev:all": "npm run dev",
+    "build": "npm run build --prefix mcp-server && npm run build --prefix mcp-bridge && npm run build --prefix vue-frontend",
+    "start": "concurrently -n \"server,bridge,vue\" -c \"blueBright,greenBright,cyanBright\" \"npm run start --prefix mcp-server\" \"npm run start --prefix mcp-bridge\" \"npm run preview --prefix vue-frontend\"",
+    "install:all": "npm install && npm install --prefix mcp-server && npm install --prefix mcp-bridge && npm install --prefix vue-frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

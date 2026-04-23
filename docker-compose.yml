@@ -1,0 +1,27 @@
+services:
+  mcp-server:
+    build: ./mcp-server
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  mcp-bridge:
+    build: ./mcp-bridge
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=production
+      - MCP_SERVER_URL=http://mcp-server:3001/mcp  # ✅ 关键：用服务名通信
+    depends_on:
+      - mcp-server
+    restart: unless-stopped
+
+  vue-frontend:
+    build: ./vue-frontend
+    ports:
+      - "8080:80"  # 本地访问 http://localhost:8080
+    depends_on:
+      - mcp-bridge
+    restart: unless-stopped

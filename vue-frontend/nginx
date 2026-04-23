@@ -1,0 +1,11 @@
+server {
+    listen 80;
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+    # 代理 API 请求到 Bridge（本地测试用，生产环境用 Vercel 直接调 Render）
+    location /api {
+        proxy_pass http://bridge:3002;
+        proxy_set_header Host $host;
+    }
+}
