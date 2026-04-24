@@ -41,4 +41,3 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: mcp-frontend
           directory: vue-frontend/dist
-          gitHubToken: ${{ secrets.MCP_TOKEN }}
