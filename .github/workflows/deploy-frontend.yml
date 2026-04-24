@@ -35,10 +35,8 @@ jobs:
           npm run build
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: mcp-frontend
-          directory: vue-frontend/dist
-          gitHubToken: ${{ secrets.MCP_TOKEN }}
+        working-directory: vue-frontend
+        run: npx wrangler pages deploy dist --project-name=mcp-frontend --branch production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
