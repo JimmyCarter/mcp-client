@@ -5,7 +5,7 @@ import McpToolDemo from './components/McpToolDemo.vue';
 <template>
   <div class="app-wrapper">
     <header class="app-header">
-      <h1>Vue3 × MCP Integration2</h1>
+      <h1>Vue3 × MCP Integration3</h1>
       <p>Vue3 (Vite) → Node.js Bridge → MCP Server (StreamableHTTP)</p>
     </header>
     <main>
