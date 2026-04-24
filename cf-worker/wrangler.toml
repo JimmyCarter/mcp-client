@@ -1,0 +1,12 @@
+name = "mcp-bridge-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+# 在此填写 cloudflared quick tunnel 的地址
+# 运行: cloudflared tunnel --url http://localhost:3002
+# 把输出的 https://xxx.trycloudflare.com 填到下面
+BRIDGE_URL = "https://your-tunnel.trycloudflare.com"
+
+# 或者通过 wrangler secret 设置（推荐）：
+# wrangler secret put BRIDGE_URL
