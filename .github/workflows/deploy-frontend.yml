@@ -10,6 +10,7 @@ on:
 permissions:
   contents: read
   deployments: write
+  id-token: write
 
 jobs:
   deploy:
@@ -40,3 +41,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: mcp-frontend
           directory: vue-frontend/dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
